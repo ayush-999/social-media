@@ -23,6 +23,8 @@ class Post extends User
       $main_react = $this->main_react($user_id, $post->post_id);
       $react_max_show = $this->react_max_show($post->post_id);
       $main_react_count = $this->main_react_count($post->post_id);
+      $commentDetails = $this->commentFetch($post->post_id);
+      $totalCommentCount = $this->totalCommentCount($post->post_id);
 ?>
 <div class="profile-timeLine">
   <div class="card news-feed-component border-0 mb-2">
@@ -105,7 +107,12 @@ class Post extends User
             </div>
           </div>
           <div class="comment-share-count-wrap grey-color">
-            <div class="comment-count-wrap"></div>
+            <div class="comment-count-wrap">
+              <?php if (empty($totalCommentCount->totalComment)) {
+                    } else {
+                      echo '' . $totalCommentCount->totalComment . ' comments';
+                    } ?>
+            </div>
             <div class="share-count-wrap"></div>
           </div>
         </div>
@@ -201,6 +208,20 @@ class Post extends User
   public function main_react_count($postid)
   {
     $stmt = $this->pdo->prepare("SELECT count(*) as maxreact from react WHERE reactOn = :postid AND reactCommentOn = '0' AND reactReplyOn = '0'");
+    $stmt->bindParam(":postid", $postid, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_OBJ);
+  }
+  public function commentFetch($postid)
+  {
+    $stmt = $this->pdo->prepare("SELECT * FROM comments INNER JOIN profile ON comments.commentBy = profile.userId WHERE comments.commentOn = :postid AND comments.commentReplyID = '0' LIMIT 10");
+    $stmt->bindParam(":postid", $postid, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+  }
+  public function totalCommentCount($postid)
+  {
+    $stmt = $this->pdo->prepare("SELECT count(*) as totalComment FROM comments WHERE comments.commentOn =:postid");
     $stmt->bindParam(":postid", $postid, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_OBJ);

@@ -173,7 +173,7 @@ ul li {
 .header-icon {
   color: #08264E;
   margin: 0 10px;
-  font-size: 18px;
+  font-size: 16px;
   transition: all .1s ease;
 }
 
@@ -436,7 +436,7 @@ ul li {
 
 /* profile pic update */
 .top-box {
-  background-color: rgba(255, 255, 255, 0.93);
+  background-color: rgba(255, 255, 255, 0.97);
   position: fixed;
   width: 230px;
   height: 100px;
@@ -511,7 +511,7 @@ ul li {
 .intro-icon-text i {
   display: block;
   margin: 15px 0 8px 0;
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .intro-icon-text .add-bio-text {
@@ -551,8 +551,8 @@ ul li {
   align-items: center;
 }
 
-.bio-location .bi,
-.bio-follow .bi {
+.bio-location i,
+.bio-follow i {
   font-size: 14px;
 }
 
@@ -607,7 +607,7 @@ ul li {
 }
 
 .feature-plus-icon {
-  font-size: 16px;
+  font-size: 10px;
   color: #0E4288;
 }
 
@@ -690,7 +690,7 @@ ul li {
   /* margin-top: 10px; */
 }
 
-.rightSign-icon .bi {
+.rightSign-icon i {
   font-size: 18px;
   margin-right: 10px;
 }
@@ -980,7 +980,7 @@ ul li {
 }
 
 .profile-dialog-show {
-  top: 7%;
+  top: 10%;
   left: 16%;
   width: 70%;
   height: 350px;

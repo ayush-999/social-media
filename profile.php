@@ -28,14 +28,15 @@ $userData = $loadFromUser->userData($userId);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php echo '' . $profileData->firstName . ' ' . $profileData->lastName . ''; ?></title>
   <!-- Favicon -->
-  <link rel="shortcut icon" href="assets/image/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/image/favicon.ico" type="image/x-icon" />
   <!-- CDN CSS-->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" />
   <!-- Icon CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="assets/plugins/fontawesome-6/css/all.min.css" />
   <!-- Main CSS -->
-  <link href="assets/css/style.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/dist/emojionearea.min.css">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/dist/emojionearea.min.css" />
 </head>
 
 <body>
@@ -52,7 +53,7 @@ $userData = $loadFromUser->userData($userId);
               <div class="search">
                 <input type="text" class="searchTerm" placeholder="Search here..">
                 <button type="submit" class="searchButton">
-                  <i class="bi bi-search"></i>
+                  <i class="fa-regular fa-magnifying-glass"></i>
                 </button>
               </div>
             </div>
@@ -80,7 +81,7 @@ $userData = $loadFromUser->userData($userId);
               <li class="d-flex align-items-center header-vertical-line">
                 <div class="icon-wrapper">
                   <a href="#">
-                    <i class="bi bi-people-fill header-icon"></i>
+                    <i class="fa-solid fa-user-group header-icon"></i>
                   </a>
                   <div class="custom-badge">1</div>
                 </div>
@@ -88,7 +89,7 @@ $userData = $loadFromUser->userData($userId);
               <li class="d-flex align-items-center header-vertical-line">
                 <div class="icon-wrapper">
                   <a href="#">
-                    <i class="bi bi-messenger header-icon"></i>
+                    <i class="fa-brands fa-facebook-messenger header-icon"></i>
                   </a>
                   <div class="custom-badge">10</div>
                 </div>
@@ -96,30 +97,29 @@ $userData = $loadFromUser->userData($userId);
               <li class="d-flex align-items-center header-vertical-line">
                 <div class="icon-wrapper">
                   <a href="#">
-                    <i class="bi bi-bell-fill header-icon"></i>
+                    <i class="fa-solid fa-bell header-icon"></i>
                   </a>
                   <div class="custom-badge">100</div>
                 </div>
               </li>
               <li class="d-flex align-items-center header-vertical-line">
                 <a href="#">
-                  <i class="bi bi-info-circle-fill header-icon"></i>
+                  <i class="fa-solid fa-circle-info header-icon"></i>
                 </a>
               </li>
               <li class="d-flex align-items-center dropdown">
                 <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-gear-wide-connected header-icon"></i>
+                  <i class="fa-solid fa-gear header-icon"></i>
                 </a>
-                <ul class="dropdown-menu  border-0">
+                <ul class="dropdown-menu border-0 rounded-0 p-0">
                   <li>
-                    <a class="dropdown-item" href="#">Settings</a>
+                    <a class="dropdown-item p-2" href="#">
+                      <i class="fa-regular fa-gear me-2"></i>Settings
+                    </a>
                   </li>
                   <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="logout.php">
-                      Logout
+                    <a class="dropdown-item p-2" href="logout.php">
+                      <i class="fa-regular fa-right-from-bracket me-2"></i>Logout
                     </a>
                   </li>
                 </ul>
@@ -141,7 +141,7 @@ $userData = $loadFromUser->userData($userId);
                   <div class="upload-cover-option-wrap">
                     <?php if ($profileId == $userId) { ?>
                     <div class="add-cover-photo">
-                      <i class="bi bi-camera-fill"></i>
+                      <i class="fa-solid fa-camera"></i>
                       <p>update</p>
                     </div>
                     <?php } else { ?>
@@ -152,7 +152,7 @@ $userData = $loadFromUser->userData($userId);
                       <!-- <div class="select-cover-photo">Change Photo</div> -->
                       <div class="file-upload">
                         <label for="cover-upload" class="file-upload-label-1">
-                          <i class="bi bi-plus me-1"></i>Upload Photo
+                          <i class="fa-solid fa-plus me-1"></i>Upload Photo
                         </label>
                         <input type="file" name="file-upload" class="file-upload-input" id="cover-upload">
                       </div>
@@ -166,7 +166,7 @@ $userData = $loadFromUser->userData($userId);
                         ?>
                         <div class="profile-pic-upload">
                           <div class="add-pro">
-                            <i class="bi bi-camera-fill"></i>
+                            <i class="fa-solid fa-camera"></i>
                             <div class="update-text">
                               <p>Update</p>
                             </div>
@@ -221,11 +221,11 @@ $userData = $loadFromUser->userData($userId);
                     <div class="bio-wrap card border-0 mb-2">
                       <div class="card-body p-2 bio-intro">
                         <div class="intro-wrap">
-                          <i class="bi bi-globe-central-south-asia blue-color"></i>
+                          <i class="fa-solid fa-earth-asia blue-color"></i>
                           <h6>Intro</h6>
                         </div>
                         <div class="intro-icon-text text-center">
-                          <i class="bi bi-chat-square grey-color"></i>
+                          <i class="fa-light fa-message-smile grey-color"></i>
                           <div class="add-bio-text">
                             <p>Add a short bio to tell people more yourself !</p>
                           </div>
@@ -235,13 +235,13 @@ $userData = $loadFromUser->userData($userId);
                         </div>
                         <div class="bio-details">
                           <div class="bio-location mb-2">
-                            <i class="bi bi-geo-alt-fill grey-color"></i>
+                            <i class="fa-solid fa-location-dot grey-color"></i>
                             <div class="live-text">
                               <p class="grey-color">Live in <span class="live-text-css blue-color">Bilaspur</span>
                             </div>
                           </div>
                           <div class="bio-follow">
-                            <i class="bi bi-people-fill grey-color"></i>
+                            <i class="fa-solid fa-square-rss grey-color"></i>
                             <div class="follow-text">
                               <p class="grey-color">Followed by <span class="follow-text-css blue-color">65
                                   people</span>
@@ -250,7 +250,7 @@ $userData = $loadFromUser->userData($userId);
                         </div>
                         <div class="bio-feature text-center">
                           <div class="feature-icon">
-                            <i class="bi bi-stars blue-color"></i>
+                            <i class="fa-solid fa-stars blue-color"></i>
                           </div>
                           <div class="feature-text">
                             <p class="mb-2">
@@ -262,7 +262,7 @@ $userData = $loadFromUser->userData($userId);
                             </div>
                           </div>
                           <div class="add-feature-link">
-                            <i class="bi bi-plus feature-plus-icon"></i>
+                            <i class="fa-solid fa-plus feature-plus-icon me-1"></i>
                             <div class="add-feature-link-text">
                               <span>Add Instagram, Website, Other Links</span>
                             </div>
@@ -339,7 +339,7 @@ $userData = $loadFromUser->userData($userId);
                             <div class="status-share-top">
                               <div class="newsFeed-wrapper">
                                 <div class="rightSign-icon">
-                                  <i class="bi bi-check-circle-fill blue-color"></i>
+                                  <i class="fa-solid fa-newspaper blue-color"></i>
                                 </div>
                                 <div class="newsFeed-text">
                                   <h5>News Feed</h5>
@@ -348,15 +348,15 @@ $userData = $loadFromUser->userData($userId);
                               <div class="privacy">
                                 <select name="" id="" class="privacy-select">
                                   <option selected value="1">
-                                    <i class="bi bi-globe-central-south-asia me-1"></i>
+                                    <i class="fa-solid fa-globe me-1"></i>
                                     <span>Public</span>
                                   </option>
                                   <option value="2">
-                                    <i class="bi bi-lock-fill me-1"></i>
+                                    <i class="fa-solid fa-lock me-1"></i>
                                     <span>Private</span>
                                   </option>
                                   <option value="3">
-                                    <i class="bi bi-people-fill me-1"></i>
+                                    <i class="fa-solid fa-user-group me-1"></i>
                                     <span>Friends</span>
                                   </option>
                                 </select>
@@ -411,7 +411,7 @@ $userData = $loadFromUser->userData($userId);
   $(function() {
     $('.profile-pic-upload').on('click', function() {
       $('.profile-popup-show').html(
-        '<div class="top-box align-vertical-middle profile-dialog-show"> <div class="profile-pic-upload-action"> <div class="pro-pic-up "> <div class="file-upload"> <label for="profile-upload" class="file-upload-label-1"> <snap class="upload-plus-text"><snap class="upload-plus-sign"><i class="bi bi-plus me-1"></i></snap>Upload Photo</snap> </label> <input type="file" name="file-upload" id="profile-upload" class="file-upload-input"> </div> </div> <div class="pro-pic-choose"></div> </div> </div>'
+        '<div class="top-box align-vertical-middle profile-dialog-show"> <div class="profile-pic-upload-action"> <div class="pro-pic-up "> <div class="file-upload"> <label for="profile-upload" class="file-upload-label-1"> <snap class="upload-plus-text"><snap class="upload-plus-sign"><i class="fa-solid fa-plus me-1"></i></snap>Upload Photo</snap> </label> <input type="file" name="file-upload" id="profile-upload" class="file-upload-input"> </div> </div> <div class="pro-pic-choose"></div> </div> </div>'
       )
     })
 
@@ -684,9 +684,11 @@ $userData = $loadFromUser->userData($userId);
       $(postDetails).show().html(
         '<ul class="post-option-details p-0 m-0"><li class="post-edit post-option-item" data-postid="' +
         postId + '" data-userid="' + userId +
-        '">Edit</li><li class="post-delete post-option-item" data-postid="' + postId +
-        '" data-userid="' + userId + '">Delete</li><li class="post-privacy post-option-item" data-postid="' +
-        postId + '" data-userid="' + userId + '">Privacy</li></ul>');
+        '"><i class="fa-solid fa-pen-to-square me-1"></i>Edit</li><li class="post-delete post-option-item" data-postid="' +
+        postId +
+        '" data-userid="' + userId +
+        '"><i class="fa-solid fa-trash me-1"></i>Delete</li><li class="post-privacy post-option-item" data-postid="' +
+        postId + '" data-userid="' + userId + '"><i class="fa-solid fa-lock me-1"></i>Privacy</li></ul>');
     })
 
     $(document).on('click', 'li.post-edit', function() {
@@ -702,7 +704,7 @@ $userData = $loadFromUser->userData($userId);
       $('.edit-popup').html(
         '<div class="top-box edit-dialog-show"><div class="w-100"><div class="edit-post-header"> <div class="edit-post-text">Edit Post</div><div class="edit-post-close"><i class="bi bi-x"></i></div> </div> <div class="edit-post-value"><div class="status-med"> <div class="status-prof"> <div class="top-pic"><img src="' +
         profile_pic +
-        '" alt=""></div> </div> <div class="status-prof-textarea"><textarea data-autoresize rows="5" columns="12" placeholder="" data-text name="textStatus" class="editStatus">' +
+        '" alt=""></div> </div> <div class="status-prof-textarea"><textarea data-autoresize rows="5" columns="12" placeholder="" data-text name="textStatus" id="editStatus" class="editStatus">' +
         getPostText +
         '</textarea></div> </div> </div> <div class="edit-post-submit"> <div class="status-privacy-wrap"> <div class="status-privacy "> <div class="privacy-icon"><img src="assets/image/profile/publicIcon.JPG" alt=""></div> <div class="privacy-text">Public</div> <div class="privacy-downarrow-icon"><i class="bi bi-caret-down-fill"></i></div> </div> <div class="status-privacy-option"></div> </div> <div class="edit-post-save" data-postid="' +
         postid + '" data-userid="' + userid + '" data-tag="' + thiss + '">Save</div> </div> </div></div>');

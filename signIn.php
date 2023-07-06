@@ -1,7 +1,14 @@
 <?php
 
-require 'connect/DB.php';
+include 'connect/login.php';
+// require 'connect/DB.php';
 require 'core/load.php';
+
+// Check if user is already logged in
+if (login::isLoggedIn()) {
+  header('Location: index.php');
+  exit;
+}
 
 if (isset($_POST['in-email-mobile']) && !empty($_POST['in-email-mobile'])) {
   $email_mobile = $_POST['in-email-mobile'];
