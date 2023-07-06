@@ -20,7 +20,9 @@ class Post extends User
     $posts = $stmt->fetchAll(PDO::FETCH_OBJ);
 
     foreach ($posts as $post) {
-
+      $main_react = $this->main_react($user_id, $post->post_id);
+      $react_max_show = $this->react_max_show($post->post_id);
+      $main_react_count = $this->main_react_count($post->post_id);
 ?>
 <div class="profile-timeLine">
   <div class="card news-feed-component border-0 mb-2">
@@ -81,43 +83,93 @@ class Post extends User
                 ?>
         </div>
       </div>
-
+      <div class="nf-3">
+        <div class="react-comment-count-wrap">
+          <div class="react-count-wrap">
+            <div class="nf-3-react-icon">
+              <div class="react-inst-img">
+                <?php
+                      foreach ($react_max_show as $react_max) {
+                        echo '<img class = "' . $react_max->reactType . '-max-show" src="assets/image/react/' . $react_max->reactType . '.png" alt="">';
+                      }
+                      ?>
+              </div>
+            </div>
+            <div class="nf-3-react-username">
+              <?php
+                    if ($main_react_count->maxreact == '0') {
+                    } else {
+                      echo $main_react_count->maxreact;
+                    }
+                    ?>
+            </div>
+          </div>
+          <div class="comment-share-count-wrap grey-color">
+            <div class="comment-count-wrap"></div>
+            <div class="share-count-wrap"></div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="card-body p-0">
-      <div class="nf-3"></div>
       <div class="nf-4">
         <div class="action-wrap">
-          <div class="like-action ra">
-            <div class="like-action-icon">
-              <img src="assets/image/likeAction.JPG" class="action-img img-fluid" alt="">
-            </div>
-            <div class="like-action-text grey-color">
-              <span>Like</span>
+          <div class="like-action-wrap position-relative" data-postid="<?php echo $post->post_id; ?>"
+            data-userid="<?php echo $user_id; ?>">
+            <div class="react-bundle-wrap"></div>
+            <div class="like-action ra">
+              <?php if (empty($main_react)) { ?>
+              <div class="like-action-icon">
+                <img src="assets/image/likeAction.JPG" class="img-fluid" alt="">
+              </div>
+              <div class="like-action-text">
+                <span>Like</span>
+              </div>
+              <?php } else { ?>
+              <div class="like-action-icon">
+                <img src="assets/image/react/<?php echo $main_react->reactType; ?>.png" class="reactIconSize img-fluid"
+                  alt="">
+              </div>
+              <div class="like-action-text">
+                <span class="<?php echo $main_react->reactType;  ?>-color">
+                  <?php echo $main_react->reactType; ?>
+                </span>
+              </div>
+              <?php
+                    } ?>
             </div>
           </div>
-          <div class="comment-action ra">
-            <div class="comment-action-icon">
-              <img src="assets/image/commentAction.JPG" class="action-img img-fluid" alt="">
-            </div>
-            <div class="comment-action-text grey-color">
-              <div class="comment-wrap"></div>
-              <div class="comment-text">Comment</div>
+          <div class="comment-action-wrap position-relative">
+            <div class="comment-action ra">
+              <div class="comment-action-icon">
+                <img src="assets/image/commentAction.JPG" class="img-fluid" alt="">
+              </div>
+              <div class="comment-action-text">
+                <div class="comment-wrap"></div>
+                <div class="comment-text">
+                  <span>Comment</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="share-action ra" data-postid="<?php echo $post->post_id; ?>" data-userid="<?php echo $user_id; ?>"
-            data-profileid="<?php echo $profileId ?>" data-profilepic="<?php echo $post->profilePic; ?>">
-            <div class="share-action-icon">
-              <img src="assets/image/shareAction.JPG" class="action-img img-fluid" alt="">
-            </div>
-            <div class="share-action-text grey-color">
-              <span>Share</span>
+          <div class="share-action-wrap position-relative">
+            <div class="share-action ra" data-postid="<?php echo $post->post_id; ?>"
+              data-userid="<?php echo $user_id; ?>" data-profileid="<?php echo $profileId; ?>"
+              data-profilepic="<?php echo $post->profilePic; ?>">
+              <div class="share-action-icon">
+                <img src="assets/image/shareAction.JPG" class="img-fluid" alt="">
+              </div>
+              <div class="share-action-text">
+                <span>Share</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="card-footer news-feed-photo bg-transparent">
       <div class="nf-5"></div>
     </div>
-    <div class="card-footer news-feed-photo bg-transparent"></div>
   </div>
 </div>
 <?php
@@ -130,6 +182,28 @@ class Post extends User
     $stmt->bindParam(":post_id", $post_id, PDO::PARAM_INT);
     $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
     $stmt->execute();
+  }
+  public function main_react($userid, $postid)
+  {
+    $stmt = $this->pdo->prepare("SELECT * FROM `react` WHERE `reactBy` = :user_id AND `reactOn` = :postid AND `reactCommentOn`= '0' AND `reactReplyOn` = '0' ");
+    $stmt->bindParam(":user_id", $userid, PDO::PARAM_INT);
+    $stmt->bindParam(":postid", $postid, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_OBJ);
+  }
+  public function react_max_show($postid)
+  {
+    $stmt = $this->pdo->prepare("SELECT reactType, count(*) as maxreact from react WHERE reactOn = :postid AND reactCommentOn = '0' AND reactReplyOn = '0' GROUP BY reactType LIMIT 3");
+    $stmt->bindParam(":postid", $postid, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+  }
+  public function main_react_count($postid)
+  {
+    $stmt = $this->pdo->prepare("SELECT count(*) as maxreact from react WHERE reactOn = :postid AND reactCommentOn = '0' AND reactReplyOn = '0'");
+    $stmt->bindParam(":postid", $postid, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_OBJ);
   }
 }
 ?>

@@ -11,7 +11,7 @@ if (count($_FILES['file']['name']) > 0) {
     $file_name = $_FILES['file']['name'];
     $tmp_name = $_FILES['file']['tmp_name'];
 
-    $path_directory = $_SERVER['DOCUMENT_ROOT'] . "/php-practice/social/user/" . $userId . "/postImage/";
+    $path_directory = $_SERVER['DOCUMENT_ROOT'] . "/social-media/user/" . $userId . "/postImage/";
 
     if (!file_exists($path_directory) && !is_dir($path_directory)) {
       mkdir($path_directory, 0777, true);

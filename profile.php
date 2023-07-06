@@ -336,9 +336,6 @@ $userData = $loadFromUser->userData($userId);
                           <div id="sortable" class="row sortable mb-0"></div>
                           <div id="error_multiple_files"></div>
                           <div class="status-share-wrapper">
-                            <!-- 
-                              <div class="status-share-top status-share-button"> 
-                            -->
                             <div class="status-share-top">
                               <div class="newsFeed-wrapper">
                                 <div class="rightSign-icon">
@@ -660,7 +657,8 @@ $userData = $loadFromUser->userData($userId);
           onlyStatusText: statusText,
           // mention_user: mention_user
         }, function(data) {
-          $('adv_dem').html(data);
+          // $('adv_dem').html(data);
+          $('#adv_dem').html(data);
           location.reload();
         })
       } else {
@@ -723,7 +721,8 @@ $userData = $loadFromUser->userData($userId);
         userid: userid
       }, function(data) {
         $('#editPostPut').html(data).removeAttr('id');
-        $('.edit-popup').empty()
+        $('.edit-popup').empty();
+        location.reload();
       })
     })
 
@@ -739,10 +738,146 @@ $userData = $loadFromUser->userData($userId);
           userid: userid
         }, function(data) {
           $(postContainer).empty();
+          location.reload();
         })
       }
     })
     // ------------------------ Post Option End ------------------------ //
+
+    // ------------------------ Main React Start ------------------------ //
+    $(document).on('click', '.like-action', function() {
+      var likeActionIcon = $(this).find('.like-action-icon img');
+      var likeReactParent = $(this).parents('.like-action-wrap');
+      var nf4 = $(likeReactParent).parents('.nf-4');
+      var nf_3 = $(nf4).siblings('.nf-3').find('.react-count-wrap');
+      var reactCount = $(nf4).siblings('.nf-3').find('.nf-3-react-username');
+      var reactNumText = $(reactCount).text();
+      var postId = $(likeReactParent).data('postid');
+      var userId = $(likeReactParent).data('userid');
+      var typeText = $(this).find('.like-action-text span');
+      var typeR = $(typeText).text();
+      var spanClass = $(this).find('.like-action-text').find('span');
+
+      if ($(spanClass).attr('class') !== undefined) {
+        if ($(likeActionIcon).attr('src') == 'assets/image/likeAction.JPG') {
+          (spanClass).addClass('like-color');
+          $(likeActionIcon).attr('src', 'assets/image/react/like.png').addClass('reactIconSize');
+          spanClass.text('like');
+          mainReactSubmit(typeR, postId, userId, nf_3);
+        } else {
+          $(likeActionIcon).attr('src', 'assets/image/likeAction.JPG');
+          spanClass.removeClass();
+          spanClass.text('Like');
+          mainReactDelete(typeR, postId, userId, nf_3);
+        }
+      } else if ($(spanClass).attr('class') === undefined) {
+        (spanClass).addClass('like-color');
+        $(likeActionIcon).attr('src', 'assets/image/react/like.png').addClass('reactIconSize');
+        spanClass.text('like');
+        mainReactSubmit(typeR, postId, userId, nf_3);
+      } else {
+        (spanClass).addClass('like-color');
+        $(likeActionIcon).attr('src', 'assets/image/react/like.png').addClass('reactIconSize');
+        spanClass.text('like');
+        mainReactSubmit(typeR, postId, userId, nf_3);
+      }
+    })
+
+    function mainReactSubmit(typeR, postId, userId, nf_3) {
+      var profileid = <?php echo $profileId; ?>;
+      $.post('<?php echo $localhost; ?>core/ajax/react.php', {
+        reactType: typeR,
+        postid: postId,
+        userid: userId,
+        profileid: profileid
+      }, function(data) {
+        $(nf_3).empty().html(data);
+        location.reload();
+      })
+    }
+
+    function mainReactDelete(typeR, postId, userId, nf_3) {
+      var profileid = <?php echo $profileId; ?>;
+      $.post('<?php echo $localhost; ?>core/ajax/react.php', {
+        deleteReactType: typeR,
+        postid: postId,
+        userid: userId,
+        profileid: profileid
+      }, function(data) {
+        $(nf_3).empty().html(data);
+        location.reload();
+      })
+    }
+
+    $('.like-action-wrap').hover(function() {
+      var mainReact = $(this).find('.react-bundle-wrap');
+      $(mainReact).html(
+        '<div class="react-bundle"> <div class="like-react-click d-flex align-items-center justify-content-center"> <img class="main-icon-css" src="<?php echo ' ' . BASE_URL . 'assets/image/react/like.png'; ?>" alt=""> </div> <div class="love-react-click d-flex align-items-center justify-content-center"> <img class="main-icon-css" src="<?php echo ' ' . BASE_URL . 'assets/image/react/love.png'; ?>" alt=""> </div> <div class="haha-react-click d-flex align-items-center justify-content-center"> <img class="main-icon-css" src="<?php echo ' ' . BASE_URL . 'assets/image/react/haha.png'; ?>" alt=""> </div> <div class="wow-react-click d-flex align-items-center justify-content-center"> <img class="main-icon-css" src="<?php echo ' ' . BASE_URL . 'assets/image/react/wow.png'; ?>" alt=""> </div> <div class="sad-react-click d-flex align-items-center justify-content-center"> <img class="main-icon-css" src="<?php echo ' ' . BASE_URL . 'assets/image/react/sad.png'; ?>" alt=""> </div> <div class="angry-react-click d-flex align-items-center justify-content-center"> <img class="main-icon-css" src="<?php echo ' ' . BASE_URL . 'assets/image/react/angry.png'; ?>" alt=""> </div> </div>'
+      );
+    }, function() {
+      var mainReact = $(this).find('.react-bundle-wrap');
+      $(mainReact).html('');
+    })
+
+    $(document).on('click', '.main-icon-css', function() {
+      var likeReact = $(this).parent();
+      reactReply(likeReact);
+    })
+
+    function reactReply(sClass) {
+      if ($(sClass).hasClass('like-react-click')) {
+        mainReactSub('like', 'blue');
+      } else if ($(sClass).hasClass('love-react-click')) {
+        mainReactSub('love', 'red');
+      } else if ($(sClass).hasClass('haha-react-click')) {
+        mainReactSub('haha', 'yellow');
+      } else if ($(sClass).hasClass('wow-react-click')) {
+        mainReactSub('wow', 'yellow');
+      } else if ($(sClass).hasClass('sad-react-click')) {
+        mainReactSub('sad', 'yellow');
+      } else if ($(sClass).hasClass('angry-react-click')) {
+        mainReactSub('angry', 'red');
+      } else {
+        console.log('Not found');
+      }
+    }
+
+    function mainReactSub(typeR, color) {
+      var reactColor = '' + typeR + '-color';
+      var pClass = $('.' + typeR + '-react-click');
+      var likeReactParent = $(pClass).parents('.like-action-wrap');
+      var nf4 = $(likeReactParent).parents('.nf-4');
+      var nf_3 = $(nf4).siblings('.nf-3').find('.react-count-wrap');
+      var reactCount = $(nf4).siblings('.nf-3').find('.nf-3-react-username');
+      var reactNumText = $(reactCount).text();
+
+      var postId = $(likeReactParent).data('postid');
+      var userId = $(likeReactParent).data('userid');
+      var likeAction = $(likeReactParent).find('.like-action');
+      var likeActionIcon = $(likeAction).find('.like-action-icon img');
+      var spanClass = $(likeAction).find('.like-action-text').find('span');
+
+      if ($(spanClass).hasClass(reactColor)) {
+        $(spanClass).removeClass();
+        spanClass.text('Like');
+        $(likeActionIcon).attr('src', 'assets/image/likeAction.JPG');
+        mainReactDelete(typeR, postId, userId, nf_3);
+      } else if ($(spanClass).attr('class') !== undefined) {
+        $(spanClass).removeClass().addClass(reactColor);
+        spanClass.text(typeR);
+        $(likeActionIcon).removeAttr('src').attr('src', 'assets/image/react/' + typeR + '.png').addClass(
+          'reactIconSize');
+        mainReactSubmit(typeR, postId, userId, nf_3);
+      } else {
+        $(spanClass).addClass(reactColor);
+        //                        $(likeActionIcon).attr('src', 'assets/image/react/' + typeR + '.png').addClass('reactIconSize');
+        spanClass.text(typeR);
+        $(likeActionIcon).removeAttr('src').attr('src', 'assets/image/react/' + typeR + '.png').addClass(
+          'reactIconSize');
+        mainReactSubmit(typeR, postId, userId, nf_3);
+      }
+    }
+    // ------------------------ Main React End ------------------------ //
 
     $(document).on('click', '.postImage', function() {
       var userId = $(this).data('userid');

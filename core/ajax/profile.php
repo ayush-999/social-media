@@ -18,7 +18,7 @@ if (isset($_POST['imgName'])) {
 if (0 < $_FILES['file']['error']) {
   echo 'Error: ' . $_FILES['file']['error'] . '<br>';
 } else {
-  $path_directory = $_SERVER['DOCUMENT_ROOT'] . "/php-practice/social/user/" . $userId . "/coverPhoto/";
+  $path_directory = $_SERVER['DOCUMENT_ROOT'] . "/social-media/user/" . $userId . "/coverPhoto/";
   if (!file_exists($path_directory) && !is_dir($path_directory)) {
     mkdir($path_directory, 0777, true);
   }

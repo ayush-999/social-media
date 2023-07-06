@@ -867,8 +867,10 @@ ul li {
 
 .post-text {
   font-size: 13px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   line-height: 1.4;
+  margin-bottom: 5px;
 }
 
 .post-img-box {
@@ -892,22 +894,20 @@ ul li {
 .like-action-text,
 .comment-text,
 .share-action-text {
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #616161;
+  ;
   margin-left: 3px;
+  letter-spacing: 0.3px;
+  text-transform: capitalize;
 }
 
 .action-wrap {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 10px 16px;
-  /* border-top: 1px solid #ccc; */
-}
-
-.action-img {
-  width: 18px;
-  height: 18px;
-  object-fit: cover;
 }
 
 .post-img-wrap {
@@ -1045,6 +1045,13 @@ ul li {
   margin-left: 5px;
   cursor: pointer;
   border-radius: 3px;
+  transition: all 0.1s ease-in-out;
+}
+
+.edit-post-save:hover {
+  color: #FFF;
+  background-color: #0B356C;
+  border: 1px solid #0B356C;
 }
 
 .status-med {
@@ -1100,4 +1107,129 @@ ul li {
   font-size: 14px;
   margin-left: 3px;
   margin-top: 2px;
+}
+
+/* React action */
+
+.reactIconSize {
+  margin-top: 0;
+}
+
+.react-comment-count-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.react-count-wrap,
+.comment-share-count-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-inst-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-share-count-wrap {
+  font-size: 13px;
+}
+
+.comment-count-wrap {
+  margin-right: 10px;
+}
+
+.like-action-icon,
+.comment-action-icon,
+.share-action-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.like-color {
+  color: #4267B2;
+  font-weight: 700;
+}
+
+.love-color {
+  color: #F63459;
+  font-weight: 700;
+}
+
+.wow-color {
+  color: #FBDB68;
+  font-weight: 700;
+}
+
+.haha-color {
+  color: #FBDB68;
+  font-weight: 700;
+}
+
+.sad-color {
+  color: #FBDB68;
+  font-weight: 700;
+}
+
+.angry-color {
+  color: #E4605A;
+  font-weight: 700;
+}
+
+.like-max-show,
+.love-max-show,
+.wow-max-show,
+.sad-max-show,
+.haha-max-show,
+.angry-max-show {
+  height: 15px;
+  width: 15px;
+  margin-right: 2px;
+  cursor: pointer;
+}
+
+.emojioneemoji {
+  width: 18px;
+  height: auto;
+}
+
+.nf-3-react-username {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.react-bundle {
+  position: absolute;
+  margin-top: -42px;
+  margin-left: -70px;
+  background-color: white;
+  padding: 0 2px;
+  border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  height: 45px;
+  width: 250px;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.main-icon-css {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  position: absolute;
+}
+
+.main-icon-css:hover {
+  height: 35px;
+  width: 35px;
+  transform: rotate(30deg);
+  transition: 0.2s;
+  cursor: pointer;
+  position: absolute;
 }
